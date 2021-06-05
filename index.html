@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Picker API Live Demo.</title>
+    <meta title="Contact Picker API Live Demo." />
+    <meta
+      description="Contact Picker API Live Demo. Contact Picker API supports only on Android web and on chrome greater than v80. It only runs on https protocol. Wont work on localhost"
+    />
+    <style>
+      body {
+        width: 500px;
+        margin: auto;
+        padding: 40px;
+        line-height: 20px;
+      }
+      button {
+        background-color: red;
+        padding: 20px;
+        font-size: 20px;
+        border: 0;
+        color: #fff;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><b style="color: red">Contact Picker</b> API Live Demo.</h1>
+    <p>
+      Please note that <b>Contact Picker API </b> is only for Android Mobile Web
+      and it requires chrome version greater than 80. <br />
+      It also requires the application to be run in https protocol. It won't run
+      on <b>localhost and desktop</b>.
+    </p>
+    <button onclick="openContactPicker()">Open my phone contacts</button>
+  </body>
+  <script>
+    function openContactPicker() {
+      const supported = "contacts" in navigator && "ContactsManager" in window;
+
+      if (supported) {
+        getContacts();
+      } else {
+        alert(
+          "Contact list API not supported!. Only for android mobile chrome and chrome version > 80"
+        );
+      }
+    }
+    async function getContacts() {
+      const props = ["name", "email", "tel"];
+      const opts = { multiple: true };
+
+      try {
+        const contacts = await navigator.contacts.select(props, opts);
+        alert(JSON.stringify(contacts));
+      } catch (err) {
+        alert(err);
+      }
+    }
+  </script>
+</html>
